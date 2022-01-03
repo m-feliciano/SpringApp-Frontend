@@ -15,7 +15,7 @@ export class AuthService {
     }
 
     authenticate(creds: CredentialsDTO) {
-        return this.http.post(`${API_CONFIG.baseUrl}/login`, creds, {
+        return this.http.post(API_CONFIG.loginUrl, creds, {
             observe: "response",
             responseType: "text" // to avoid json parsing error
         });
