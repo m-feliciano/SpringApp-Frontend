@@ -6,7 +6,7 @@ import {CategoryDTO} from "../../models/category.dto";
 
 @Injectable()
 export class CategoryService {
-    constructor(public http: HttpClient) {
+    constructor(private http: HttpClient) {
 
     }
 

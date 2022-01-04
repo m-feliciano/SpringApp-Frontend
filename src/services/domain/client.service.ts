@@ -8,7 +8,7 @@ import {StorageService} from "../storage.service";
 @Injectable()
 export class ClientService {
 
-    constructor(public http: HttpClient, public storage: StorageService) {
+    constructor(private http: HttpClient, private storage: StorageService) {
     }
 
     findByEmail(email: string): Observable<ClientDTO> {

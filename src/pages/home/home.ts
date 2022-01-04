@@ -16,9 +16,9 @@ export class HomePage {
     };
 
     constructor(
-        public navCtrl: NavController,
-        public menu: MenuController,
-        public auth: AuthService) {
+        private navCtrl: NavController,
+        private menu: MenuController,
+        private auth: AuthService) {
 
     }
 
@@ -35,8 +35,7 @@ export class HomePage {
             .subscribe(res => {
                 this.auth.successfulLogin(res.headers.get("Authorization"));
                 this.navCtrl.setRoot("CategoriesPage")
-            }, error => {
-            });
+            }, error => {});
     }
 
     login() {
@@ -46,5 +45,9 @@ export class HomePage {
                 this.navCtrl.setRoot("CategoriesPage")
             }, error => {
             });
+    }
+
+    signup(){
+        this.navCtrl.setRoot("SignupPage");
     }
 }

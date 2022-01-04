@@ -14,42 +14,43 @@ import {StorageService} from '../../services/storage.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html',
+    selector: 'page-profile',
+    templateUrl: 'profile.html',
 })
 export class ProfilePage {
 
-  client: ClientDTO;
+    client: ClientDTO;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public storage: StorageService,
-    public clientService: ClientService) {
-  }
-
-  ionViewDidLoad() {
-    let localUser = this.storage.getLocalUser()
-    if (localUser && localUser.email) {
-      this.clientService.findByEmail(localUser.email).subscribe(response => {
-        this.client = response
-        this.getImageIfExists();
-        //search image
-      }, error => {
-        if (error.status == 403) {
-          this.navCtrl.setRoot('HomePage');
-        }
-      })
-    } else {
-      this.navCtrl.setRoot('HomePage');
+    constructor(
+        private navCtrl: NavController,
+        private navParams: NavParams,
+        private storage: StorageService,
+        private clientService: ClientService) {
     }
-  }
 
-  getImageIfExists() {
-    this.clientService.getImageFromBucket(this.client.id)
-      .subscribe(() => {
-        this.client.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.client.id}.jpg`
-      }, error => { })
-  }
+    ionViewDidLoad() {
+        let localUser = this.storage.getLocalUser()
+        if (localUser && localUser.email) {
+            this.clientService.findByEmail(localUser.email).subscribe(response => {
+                this.client = response
+                this.getImageIfExists();
+                //search image
+            }, error => {
+                if (error.status == 403) {
+                    this.navCtrl.setRoot('HomePage');
+                }
+            })
+        } else {
+            this.navCtrl.setRoot('HomePage');
+        }
+    }
+
+    getImageIfExists() {
+        this.clientService.getImageFromBucket(this.client.id)
+            .subscribe(() => {
+                this.client.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.client.id}.jpg`
+            }, error => {
+            })
+    }
 
 }
