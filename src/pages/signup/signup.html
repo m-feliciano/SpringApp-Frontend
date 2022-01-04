@@ -1,0 +1,94 @@
+<!--
+  Generated template for the SignupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Signup</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="formGroup" (ngSubmit)="signupUser(); $event.preventDefault()"> <!-- prevent automatic redirect page-->
+        <ion-item>
+            <ion-label stacked>Name*</ion-label>
+            <ion-input formControlName="name" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Email*</ion-label>
+            <ion-input formControlName="email" type="text"></ion-input>
+        </ion-item>
+        <ion-list radio-group name="type">
+            <ion-list-header>
+                Client Type
+            </ion-list-header>
+            <ion-item>
+                <ion-label>Person</ion-label>
+                <ion-radio checked="true" value="1"></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label>Entity</ion-label>
+                <ion-radio value="2"></ion-radio>
+            </ion-item>
+        </ion-list>
+
+        <ion-item>
+            <ion-label stacked>CPF or CNPJ</ion-label>
+            <ion-input formControlName="cpfOrCnpj" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>street*</ion-label>
+            <ion-input formControlName="street" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Number*</ion-label>
+            <ion-input formControlName="number" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Complement</ion-label>
+            <ion-input formControlName="complement" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>District</ion-label>
+            <ion-input formControlName="district" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>CEP*</ion-label>
+            <ion-input formControlName="cep" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Phone 1*</ion-label>
+            <ion-input formControlName="phone1" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Phone 2</ion-label>
+            <ion-input formControlName="phone2" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>State*</ion-label>
+            <ion-select formControlName="stateId" (ionChange)="updateCities()">
+                <ion-option value="1">Minas Gerais</ion-option>
+                <ion-option value="2">São Paulo</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>City*</ion-label>
+            <ion-select formControlName="cityId">
+                <ion-option value="1">Belo Horizonte</ion-option>
+                <ion-option value="2">Campinas</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Password*</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
+        <button ion-button block type="submit">Create account</button>
+    </form>
+</ion-content>
