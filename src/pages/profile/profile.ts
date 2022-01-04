@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { API_CONFIG } from '../../config/api.config';
-import { ClientDTO } from '../../models/client.dto';
-import { ClientService } from '../../services/domain/client.service';
-import { StorageService } from '../../services/storage.service';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {API_CONFIG} from '../../config/api.config';
+import {ClientDTO} from '../../models/client.dto';
+import {ClientService} from '../../services/domain/client.service';
+import {StorageService} from '../../services/storage.service';
 
 /**
  * Generated class for the ProfilePage page.
@@ -47,7 +47,7 @@ export class ProfilePage {
 
   getImageIfExists() {
     this.clientService.getImageFromBucket(this.client.id)
-      .subscribe(response => {
+      .subscribe(() => {
         this.client.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.client.id}.jpg`
       }, error => { })
   }
