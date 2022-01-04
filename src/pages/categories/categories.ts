@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { API_CONFIG } from '../../config/api.config';
-import { CategoryDTO } from '../../models/category.dto';
-import { CategoryService } from '../../services/domain/category.service';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {API_CONFIG} from '../../config/api.config';
+import {CategoryDTO} from '../../models/category.dto';
+import {CategoryService} from '../../services/domain/category.service';
 
 /**
  * Generated class for the CategoriesPage page.
@@ -31,7 +31,7 @@ export class CategoriesPage {
     this.categoryService.findAll()
       .subscribe(response => {
         this.items = response;
-      }, err => { });
+      }, error => { });
   }
 
 }
