@@ -11,7 +11,7 @@ export class AuthService {
 
     JwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(public http: HttpClient, public storage: StorageService) {
+    constructor(private http: HttpClient, private storage: StorageService) {
     }
 
     authenticate(creds: CredentialsDTO) {
@@ -40,5 +40,4 @@ export class AuthService {
     logout() {
         this.storage.setLocalUser(null)
     }
-
 }

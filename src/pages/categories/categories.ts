@@ -13,25 +13,26 @@ import {CategoryService} from '../../services/domain/category.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-categories',
-  templateUrl: 'categories.html',
+    selector: 'page-categories',
+    templateUrl: 'categories.html',
 })
 export class CategoriesPage {
 
-  bucketUrl: string = API_CONFIG.bucketBaseUrl;
-  items: CategoryDTO[];
+    bucketUrl: string = API_CONFIG.bucketBaseUrl;
+    items: CategoryDTO[];
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public categoryService: CategoryService) {
-  }
+    constructor(
+        private navCtrl: NavController,
+        private navParams: NavParams,
+        private categoryService: CategoryService) {
+    }
 
-  ionViewDidLoad() {
-    this.categoryService.findAll()
-      .subscribe(response => {
-        this.items = response;
-      }, error => { });
-  }
+    ionViewDidLoad() {
+        this.categoryService.findAll()
+            .subscribe(response => {
+                this.items = response;
+            }, error => {
+            });
+    }
 
 }
