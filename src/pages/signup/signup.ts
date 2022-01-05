@@ -1,6 +1,10 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {StateService} from "../../services/domain/state.service";
+import {CityService} from "../../services/domain/city.service";
+import {StateDTO} from "../../models/state.dto";
+import {CityDTO} from "../../models/city.dto";
 
 /**
  * Generated class for the SignupPage page.
@@ -17,11 +21,16 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class SignupPage {
 
     formGroup: FormGroup;
+    states: StateDTO[];
+    cities: CityDTO[];
 
     constructor(
         private navCtrl: NavController,
         private navParams: NavParams,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private stateService: StateService,
+        private cityService: CityService
+    ) {
         this.formGroup = this.formBuilder.group({
             name: ['Vitor', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
             email: ['feliciano@keemail.me', [Validators.required, Validators.email]],
@@ -40,8 +49,27 @@ export class SignupPage {
         })
     }
 
+    ionViewDidLoad() {
+        this.stateService.findAll()
+            .subscribe(res => {
+                this.states = res;
+                this.formGroup.controls.stateId.setValue(this.states[0].id);
+                this.updateCities();
+            }, error => {
+            })
+    }
+
     signupUser() {
 
+    }
+  
+    updateCities() {
+        let state_id = this.formGroup.value.stateId;
+        this.cityService.findAll(state_id).subscribe(res => {
+            this.cities = res;
+            this.formGroup.controls.cityId.setValue(null);
+        }, error => {
+        })
     }
 
 }
