@@ -62,7 +62,7 @@ export class SignupPage {
     signupUser() {
 
     }
-
+  
     updateCities() {
         let state_id = this.formGroup.value.stateId;
         this.cityService.findAll(state_id).subscribe(res => {
