@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {StateService} from "../../services/domain/state.service";
 import {CityService} from "../../services/domain/city.service";
 import {StateDTO} from "../../models/state.dto";
 import {CityDTO} from "../../models/city.dto";
+import {ClientService} from "../../services/domain/client.service";
 
 /**
  * Generated class for the SignupPage page.
@@ -29,7 +30,9 @@ export class SignupPage {
         private navParams: NavParams,
         private formBuilder: FormBuilder,
         private stateService: StateService,
-        private cityService: CityService
+        private cityService: CityService,
+        private clientService: ClientService,
+        private alertController: AlertController
     ) {
         this.formGroup = this.formBuilder.group({
             name: ['Vitor', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
@@ -60,9 +63,12 @@ export class SignupPage {
     }
 
     signupUser() {
-
+        this.clientService.insert(this.formGroup.value).subscribe(res => {
+            this.showInsertOk();
+        }, error => {
+        })
     }
-  
+
     updateCities() {
         let state_id = this.formGroup.value.stateId;
         this.cityService.findAll(state_id).subscribe(res => {
@@ -72,4 +78,18 @@ export class SignupPage {
         })
     }
 
+    private showInsertOk() {
+        let alert = this.alertController.create({
+            title: "Success!",
+            message: "Client register success!",
+            enableBackdropDismiss: false,
+            buttons: [{
+                text: "ok",
+                handler: () => {
+                    this.navCtrl.pop();
+                }
+            }]
+        })
+        alert.present();
+    }
 }
