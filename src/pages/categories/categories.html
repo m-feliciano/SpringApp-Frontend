@@ -11,13 +11,12 @@
         </button>
         <ion-title>Categories</ion-title>
     </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
     <ion-list>
-        <button ion-item *ngFor="let item of items" (click)="showProducts()">
+        <button ion-item *ngFor="let item of items" (click)="showProducts(item.id)">
             <ion-thumbnail item-start>
                 <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
             </ion-thumbnail>
