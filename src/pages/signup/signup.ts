@@ -26,8 +26,8 @@ export class SignupPage {
     cities: CityDTO[];
 
     constructor(
-        private navCtrl: NavController,
-        private navParams: NavParams,
+        public navCtrl: NavController,
+        public navParams: NavParams,
         private formBuilder: FormBuilder,
         private stateService: StateService,
         private cityService: CityService,
@@ -86,7 +86,7 @@ export class SignupPage {
             buttons: [{
                 text: "ok",
                 handler: () => {
-                    this.navCtrl.pop();
+                    this.navCtrl.setRoot("HomePage");
                 }
             }]
         })
