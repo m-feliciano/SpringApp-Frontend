@@ -3,6 +3,7 @@ import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable} from 'rxjs/Rx';
 import {StorageService} from '../services/storage.service';
 import {AlertController} from "ionic-angular";
+import {FieldMessage} from "../models/fieldmessage";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -30,6 +31,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 401:
                         this.handle401();
                         break;
+                    case 422:
+                        this.handle422(errorObj);
+                        break;
                     default:
                         this.handleDefaultError(errorObj);
                         break;
@@ -48,7 +52,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             title: "Error 401: authentication failed",
             message: "Email or passeord incorrect",
             enableBackdropDismiss: false,
-            buttons: [{ text: "ok" }]
+            buttons: [{text: "ok"}]
         });
         alert.present();
     }
@@ -61,6 +65,24 @@ export class ErrorInterceptor implements HttpInterceptor {
             buttons: [{text: "ok"}]
         });
         alert.present();
+    }
+
+    private handle422(errorObj) {
+        let alert = this.alertController.create({
+            title: 'Error 422: Validation',
+            message: this.getErrors(errorObj.errors),
+            enableBackdropDismiss: false,
+            buttons: [{text: "ok"}]
+        });
+        alert.present();
+    }
+
+    private getErrors(messages: FieldMessage[]): string {
+        let str: string = '';
+        for (let i = 0; i < messages.length; i++) {
+            str += '<p><strong>' + messages[i].fieldName + '</strong>: ' + messages[i].message
+        }
+        return str;
     }
 }
 
