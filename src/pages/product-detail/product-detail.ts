@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {ProductDTO} from "../../models/product.dto";
 import {ProductService} from "../../services/domain/product.service";
 import {API_CONFIG} from "../../config/api.config";
+import {CartService} from "../../services/domain/cart.service";
 
 /**
  * Generated class for the ProductDetailPage page.
@@ -23,7 +24,8 @@ export class ProductDetailPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        private productService: ProductService) {
+        private productService: ProductService,
+        public cartService: CartService) {
     }
 
     ionViewDidLoad() {
@@ -45,4 +47,8 @@ export class ProductDetailPage {
             })
     }
 
+    addToCart(product: ProductDTO) {
+        this.cartService.addProduct(product);
+        this.navCtrl.setRoot("CartPage");
+    }
 }
