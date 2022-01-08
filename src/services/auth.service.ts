@@ -5,13 +5,16 @@ import {API_CONFIG} from "../config/api.config";
 import {CredentialsDTO} from "../models/credentials.dto";
 import {LocalUser} from "../models/local_user";
 import {StorageService} from "./storage.service";
+import {CartService} from "./domain/cart.service";
 
 @Injectable()
 export class AuthService {
 
     JwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(private http: HttpClient, private storage: StorageService) {
+    constructor(private http: HttpClient,
+                private storage: StorageService,
+                public cartService: CartService) {
     }
 
     authenticate(creds: CredentialsDTO) {
@@ -22,7 +25,7 @@ export class AuthService {
     }
 
     refreshToken() {
-        return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh_token`, {},{
+        return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh_token`, {}, {
             observe: "response",
             responseType: "text" // to avoid json parsing error
         });
@@ -35,6 +38,7 @@ export class AuthService {
             email: this.JwtHelper.decodeToken(tok).sub
         };
         this.storage.setLocalUser(user);
+        this.cartService.createOrClearCart();
     }
 
     logout() {

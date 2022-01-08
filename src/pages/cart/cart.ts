@@ -4,6 +4,7 @@ import {CartItem} from "../../models/cart-item";
 import {API_CONFIG} from "../../config/api.config";
 import {ProductService} from "../../services/domain/product.service";
 import {CartService} from "../../services/domain/cart.service";
+import {ProductDTO} from "../../models/product.dto";
 
 /**
  * Generated class for the CartPage page.
@@ -42,6 +43,30 @@ export class CartPage {
                 }, error => {
                 })
         }
+    }
+
+    increaseItem(product: ProductDTO) {
+        this.items = this.cartService.increaseQuantity(product).items;
+    }
+
+    decreaseItem(product: ProductDTO) {
+        this.items = this.cartService.decreaseQuantity(product).items;
+    }
+
+    removeItem(product: ProductDTO) {
+        this.items = this.cartService.removeProduct(product).items;
+    }
+
+    total(): number {
+        return this.cartService.total();
+    }
+
+    goOn() {
+        this.navCtrl.setRoot("CategoriesPage");
+    }
+
+    countItem() {
+        return this.cartService.countItem();
     }
 
 }

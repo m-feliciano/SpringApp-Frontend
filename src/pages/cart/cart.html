@@ -5,16 +5,13 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
     <ion-navbar>
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Cart</ion-title>
+        <ion-title>Shopping Cart</ion-title>
     </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
     <ion-list>
@@ -24,7 +21,19 @@
             </ion-thumbnail>
             <h2>{{ item.product.name}}</h2>
             <p>{{item.product.price | currency}}</p>
-            <p>{{item.quantity}}</p>
+            <ion-icon class="nolinebreak" name="remove-circle" color="primary"
+                      (click)="decreaseItem(item.product)"></ion-icon>
+            <p class="nolinebreak">{{item.quantity}}</p>
+            <ion-icon name="add-circle" color="primary" (click)="increaseItem(item.product)"></ion-icon>
+            <ion-icon name="trash" item-end color="danger" (click)="removeItem(item.product)"></ion-icon>
+        </ion-item>
+        <ion-item *ngIf="total() > 0">
+            <h1 item-end>Subtotal ({{countItem()}} items): </h1>
+            <h1 item-end>{{total() | currency}}</h1>
+        </ion-item>
+        <ion-item *ngIf="total() <= 0">
+            <h1>Cart Empty</h1>
         </ion-item>
     </ion-list>
+    <button ion-button block (click)="goOn()">Keep Shopping</button>
 </ion-content>
