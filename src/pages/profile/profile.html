@@ -17,6 +17,12 @@
 
 
 <ion-content padding>
+    <!-- fab placed to the top end -->
+    <ion-fab top end right>
+        <button navPush="CartPage" ion-fab mini>
+            <ion-icon  name="cart"></ion-icon>
+        </button>
+    </ion-fab>
   <ion-avatar>
     <img class="circle" [src]="client?.imageUrl || 'assets/imgs/avatar-blank.png'">
   </ion-avatar>
