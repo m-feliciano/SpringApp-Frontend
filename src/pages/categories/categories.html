@@ -15,6 +15,12 @@
 
 
 <ion-content padding>
+    <!-- fab placed to the top end -->
+    <ion-fab top end right>
+        <button navPush="CartPage" ion-fab mini>
+            <ion-icon  name="cart"></ion-icon>
+        </button>
+    </ion-fab>
     <ion-list>
         <button ion-item *ngFor="let item of items" (click)="showProducts(item.id)">
             <ion-thumbnail item-start>
