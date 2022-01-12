@@ -1,16 +1,9 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {API_CONFIG} from '../../config/api.config';
-import {ClientDTO} from '../../models/client.dto';
-import {ClientService} from '../../services/domain/client.service';
-import {StorageService} from '../../services/storage.service';
-
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { API_CONFIG } from '../../config/api.config';
+import { ClientDTO } from '../../models/client.dto';
+import { ClientService } from '../../services/domain/client.service';
+import { StorageService } from '../../services/storage.service';
 
 @IonicPage()
 @Component({
@@ -31,15 +24,16 @@ export class ProfilePage {
     ionViewDidLoad() {
         let localUser = this.storage.getLocalUser()
         if (localUser && localUser.email) {
-            this.clientService.findByEmail(localUser.email).subscribe(response => {
-                this.client = response
-                this.getImageIfExists();
-                //search image
-            }, error => {
-                if (error.status == 403) {
-                    this.navCtrl.setRoot('HomePage');
-                }
-            })
+            this.clientService.findByEmail(localUser.email)
+                .subscribe((response: ClientDTO) => {
+                    this.client = response;
+                    this.getImageIfExists();
+                    //search image
+                }, (error: { status: number; }) => {
+                    if (error.status == 403) {
+                        this.navCtrl.setRoot('HomePage');
+                    }
+                })
         } else {
             this.navCtrl.setRoot('HomePage');
         }
@@ -48,9 +42,8 @@ export class ProfilePage {
     getImageIfExists() {
         this.clientService.getImageFromBucket(this.client.id)
             .subscribe(() => {
-                this.client.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.client.id}.jpg`
-            }, error => {
-            })
+                this.client.imageUrl =
+                    `${API_CONFIG.bucketBaseUrl}/cp${this.client.id}.jpg`
+            }, (error: any) => { })
     }
-
 }
