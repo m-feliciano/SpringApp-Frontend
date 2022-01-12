@@ -1,4 +1,4 @@
 export interface PaymentDTO {
-    installments: number;
+    installmentsNumber: number;
     "@type": string
 }

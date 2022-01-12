@@ -57,11 +57,11 @@ export class AddressPage {
 
   nextPage(item: AddressDTO) {
     this.order.deliveryAddress = { id: item.id };
-    console.log(this.order);
+    this.navCtrl.push("PaymentPage", {order: this.order})
   }
 }
 
-
+// mock
 // this.items = [{
 //   id: "1",
 //   street: "Av Nove de Julho",
