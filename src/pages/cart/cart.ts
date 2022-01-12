@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {CartItem} from "../../models/cart-item";
-import {API_CONFIG} from "../../config/api.config";
-import {ProductService} from "../../services/domain/product.service";
-import {CartService} from "../../services/domain/cart.service";
-import {ProductDTO} from "../../models/product.dto";
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CartItem } from "../../models/cart-item";
+import { API_CONFIG } from "../../config/api.config";
+import { ProductService } from "../../services/domain/product.service";
+import { CartService } from "../../services/domain/cart.service";
+import { ProductDTO } from "../../models/product.dto";
 
 /**
  * Generated class for the CartPage page.
@@ -67,6 +67,10 @@ export class CartPage {
 
     countItem() {
         return this.cartService.countItem();
+    }
+
+    checkout() {
+        this.navCtrl.push("AddressPage");
     }
 
 }
