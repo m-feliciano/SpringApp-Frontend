@@ -8,7 +8,11 @@ import { StorageService } from "../storage.service";
 @Injectable()
 export class ClientService {
 
-    constructor(private http: HttpClient, private storage: StorageService) {
+    constructor(public http: HttpClient, public storage: StorageService) {
+    }
+
+    findById(id: string) {
+        return this.http.get(`${API_CONFIG.baseUrl}/clients/${id}`);
     }
 
     findByEmail(email: string) {
