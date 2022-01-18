@@ -22,9 +22,9 @@ export class CategoriesPage {
     items: CategoryDTO[];
 
     constructor(
-        private navCtrl: NavController,
-        private navParams: NavParams,
-        private categoryService: CategoryService) {
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public categoryService: CategoryService) {
     }
 
     ionViewDidLoad() {

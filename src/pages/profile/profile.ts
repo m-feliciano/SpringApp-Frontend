@@ -15,10 +15,10 @@ export class ProfilePage {
     client: ClientDTO;
 
     constructor(
-        private navCtrl: NavController,
-        private navParams: NavParams,
-        private storage: StorageService,
-        private clientService: ClientService) {
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public storage: StorageService,
+        public clientService: ClientService) {
     }
 
     ionViewDidLoad() {
