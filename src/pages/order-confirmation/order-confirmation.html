@@ -46,7 +46,6 @@
         <ion-card-header>
             Delivery Address
         </ion-card-header>
-
         <ion-item>
             <h2>{{address?.street}}, {{address?.number}}</h2>
             <p>{{address?.complement}} {{address?.district}} CEP {{address?.cep}}</p>
@@ -58,13 +57,15 @@
         <ion-card-header>
             Payment
         </ion-card-header>
-
-        <ion-item *ngIf="order.payment['@type']==='cartPayment'">
+        <ion-item *ngIf="order.payment['@type']==='cardPayment'">
             <h3>Cart Payment</h3>
             <p>Installments: {{order.payment.installmentsNumber}}</p>
         </ion-item>
-        <ion-item *ngIf="order.payment['@type']=='boletoPayment'">
+        <ion-item *ngIf="order.payment['@type']==='boletoPayment'">
             <h3>Boleto Payment</h3>
         </ion-item>
     </ion-card>
+    <button ion-button block (click)="checkout()">Confirm order</button>
+    <button ion-button block fill="outline" (click)="back()">Go Back</button>
+
 </ion-content>

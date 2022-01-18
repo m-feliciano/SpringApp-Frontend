@@ -15,7 +15,7 @@
       </ion-list-header>
       <ion-item>
         <ion-label>Cart Payment</ion-label>
-        <ion-radio checked="true" value="cartPayment"></ion-radio>
+        <ion-radio checked="true" value="cardPayment"></ion-radio>
       </ion-item>
       <ion-item>
         <ion-label>Boleto Payment</ion-label>
@@ -23,10 +23,10 @@
       </ion-item>
 
     </ion-list>
-    <ion-item *ngIf="formGroup.value['@type'] === 'cartPayment'">
+    <ion-item *ngIf="formGroup.value['@type'] === 'cardPayment'">
       <ion-label stacked>Installments</ion-label>
       <ion-select formControlName="installmentsNumber">
-      <ion-option *ngFor="let n of installments; first as f" 
+      <ion-option *ngFor="let n of installments; first as f"
         [value]="n" [selected]="f">{{n}}
       </ion-option>
       </ion-select>
