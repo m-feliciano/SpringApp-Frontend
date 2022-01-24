@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { InfiniteScroll, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { ProductDTO } from "../../models/product.dto";
 import { ProductService } from "../../services/domain/product.service";
 import { API_CONFIG } from "../../config/api.config";
@@ -11,7 +11,8 @@ import { API_CONFIG } from "../../config/api.config";
 })
 export class ProductsPage {
 
-    items: ProductDTO[];
+    items: ProductDTO[] = [];
+    page: number = 0;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -26,18 +27,20 @@ export class ProductsPage {
     loadData() {
         let cat_id = this.navParams.get("category_id");
         const loader = this.presentLoading();
-        this.productService.findByCategory(cat_id)
+        this.productService.findByCategory(cat_id, this.page, 10)
             .subscribe(res => {
-                this.items = res['content'];
+                let start = this.items.length
+                this.items = this.items.concat(res['content']);
+                let end = this.items.length - 1;
                 loader.dismiss();
-                this.loadImageUrls();
+                this.loadImageUrls(start, end);
             }, error => {
                 loader.dismiss();
             });
     }
 
-    loadImageUrls() {
-        for (let i = 0; i < this.items.length; i++) {
+    loadImageUrls(start: number, end: number) {
+        for (let i = start; i < end; i++) {
             let item = this.items[i];
             this.productService.getSmallImageFromBucket(item.id)
                 .subscribe(() => {
@@ -60,10 +63,21 @@ export class ProductsPage {
         return loading;
     }
     doRefresh(event) {
+        this.page = 0;
+        this.items = [];
         this.loadData();
         setTimeout(() => {
             event.complete();
         }, 1000);
+    }
+
+    doInfinite(infiniteScroll: InfiniteScroll) {
+        this.page++;
+        this.loadData();
+        setTimeout(() => {
+            infiniteScroll.complete();
+        }, 1000);
+
     }
 
 }
