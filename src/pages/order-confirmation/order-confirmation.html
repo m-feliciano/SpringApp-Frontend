@@ -61,8 +61,8 @@
                 <h3>Boleto Payment</h3>
             </ion-item>
         </ion-card>
-        <button ion-button block (click)="checkout()">Confirm order</button>
-        <button ion-button block fill="outline" (click)="back()">Go Back</button>
+        <button ion-button block color="secondary" (click)="checkout()">Confirm order</button>
+        <button ion-button block outline (click)="back()">Go Back</button>
     </div>
     <div *ngIf="codeOrder">
         <ion-card>

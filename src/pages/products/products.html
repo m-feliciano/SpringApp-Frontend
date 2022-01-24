@@ -5,31 +5,43 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
     <ion-navbar>
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
         <ion-title>Products</ion-title>
     </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+    <!-- Default Refresher -->
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Pull to refresh"
+            refreshingSpinner="circles"
+            refreshingText="Refreshing..."
+        >
+        </ion-refresher-content>
+    </ion-refresher>
     <!-- fab placed to the top end -->
     <ion-fab top end right>
         <button navPush="CartPage" ion-fab mini>
-            <ion-icon  name="cart"></ion-icon>
+            <ion-icon name="cart"></ion-icon>
         </button>
     </ion-fab>
     <ion-list>
-        <button ion-item *ngFor="let item of items" (click)="showDetail(item.id)">
+        <button
+            ion-item
+            *ngFor="let item of items"
+            (click)="showDetail(item.id)"
+        >
             <ion-thumbnail item-start>
-                <img [src]="item.imageUrl || 'assets/imgs/prod.jpg' ">
+                <img [src]="item.imageUrl || 'assets/imgs/prod.jpg' " />
             </ion-thumbnail>
             <h2>{{item.name}}</h2>
-            <p>{{item.price | currency}}</p><!--currency is to convert formart number in to money  -->
+            <p>{{item.price | currency}}</p>
+            <!--currency is to convert formart number in to money  -->
         </button>
     </ion-list>
 </ion-content>
